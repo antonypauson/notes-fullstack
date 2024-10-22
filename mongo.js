@@ -1,13 +1,15 @@
+require('dotenv').config()
+
 const mongoose = require('mongoose')
 
-if (process.argv.length<3) {
-    console.log('give password as argument')
+if (!process.env.MONGODB_PASSWORD) {
+    console.log('Password is missing in environment variable')
     process.exit(1)
 }
 
-const password = process.argv[2]
+const password = process.env.MONGODB_PASSWORD
 
-const url = `mongodb+srv://fullstack:fullstack@cluster0.r4oba.mongodb.net/noteApp?retryWrites=true&w=majority&appName=Cluster0`
+const url = `mongodb+srv://fullstack:${password}@cluster0.r4oba.mongodb.net/noteApp?retryWrites=true&w=majority&appName=Cluster0`
 
 mongoose.set('strictQuery', false)
 
